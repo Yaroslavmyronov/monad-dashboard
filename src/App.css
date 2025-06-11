@@ -1,0 +1,78 @@
+@import 'tailwindcss';
+@plugin "daisyui";
+
+@font-face {
+  font-family: 'ProtoMono';
+  src: url('../public/fonts/ProtoMono.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+:root {
+  --midnight: #101015;
+  --steel: #506385;
+  --sand: #f1f0e1;
+  --gray: #636366;
+
+  --container-width: 75rem;
+  --container-padding-x: 1rem;
+}
+
+@media (width <= 90.06125rem) {
+  :root {
+    --container-width: 80rem;
+  }
+}
+
+@theme inline {
+  --color-midnight: var(--midnight);
+  --color-steel: var(--steel);
+  --color-sand: var(--sand);
+  --color-gray: var(--gray);
+}
+
+body {
+  min-height: 100%;
+  font-family: 'ProtoMono', sans-serif;
+  background: var(--midnight);
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+@utility container {
+  max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
+  margin-inline: auto;
+  padding-inline: var(--container-padding-x);
+  @media (width <= 63.99875rem) {
+    .container {
+      max-width: calc(60rem + var(--container-padding-x) * 2);
+    }
+  }
+  @media (width <= 47.99875rem) {
+    .container {
+      max-width: calc(45rem + var(--container-padding-x) * 2);
+    }
+  }
+  @media (width <= 30.06125rem) {
+    .container {
+      max-width: calc(33.75rem + var(--container-padding-x) * 2);
+    }
+  }
+}
+
+div {
+  /* outline: 1px solid red; */
+}
+
+.swiper-pagination {
+  text-align: left !important;
+}
+
+.swiper-pagination-bullet {
+  background: transparent !important;
+  border: 1px solid white !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: white !important;
+}
