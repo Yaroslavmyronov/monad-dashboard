@@ -1,8 +1,30 @@
+import { useMetricsStore } from '@/services/store/useMetricsStore';
+import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
-import { useTxCount } from '../hooks/useTxCount';
 
 function Header() {
-  const { count, loading, error } = useTxCount();
+  const location = useLocation();
+
+  const latestBlock = useMetricsStore(state => state.metrics?.LatestBlock);
+  const totalTransaction = useMetricsStore(state => state.metrics?.TotalTransaction);
+
+  const links = [
+    {
+      to: '/transactions',
+      label: 'Transactions',
+      value: isNaN(Number(totalTransaction)) ? null : Number(totalTransaction).toLocaleString('de-DE'),
+      align: 'start',
+    },
+    {
+      to: '/blocks',
+      label: 'Blocks',
+      value: isNaN(Number(latestBlock)) ? null : Number(latestBlock).toLocaleString('de-DE'),
+      align: 'center',
+    },
+    { to: '/tokens', label: 'Tokens', value: '0.000.000', align: 'center' },
+    { to: '/nfts', label: 'NFTs', value: '00.000.000', align: 'center' },
+  ];
+
   return (
     <header className="container py-[30px] flex px-4">
       <Link to="/" className="flex items-center cursor-pointer">
@@ -14,22 +36,23 @@ function Header() {
       </Link>
       <div className="border-r mx-[40px] border-gray"></div>
       <div className="flex gap-[24px] items-center shrink">
-        <Link to="/transactions" className="flex flex-col items-start text-[12px]">
-          <div className="text-gray whitespace-nowrap">Transactions</div>
-          <div>$28.240.08</div>
-        </Link>
-        <Link to="/blocks" className="flex flex-col items-center text-[12px]">
-          <div className="text-gray whitespace-nowrap">Blocks</div>
-          <div>47.76</div>
-        </Link>
-        <Link to="/tokens" className="flex flex-col items-center text-[12px]">
-          <div className="text-gray whitespace-nowrap">Tokens</div>
-          <div>4,103.51</div>
-        </Link>
-        <Link to="/nfts" className="flex flex-col items-center text-[12px]">
-          <div className="text-gray whitespace-nowrap">NFTs</div>
-          <div>10079.28</div>
-        </Link>
+        {links.map(({ to, label, value, align }, index) => {
+          const isActive = location.pathname === to;
+          return (
+            <Link key={index} to={to} className={`flex flex-col items-${align || 'center'} text-[12px] group`}>
+              <div
+                className={`${isActive ? 'text-[#8884d8]' : 'text-gray'} whitespace-nowrap ${`group-hover:text-[#8884d8]`} transition-colors duration-300`}
+              >
+                {label}
+              </div>
+              {!value ? (
+                <div className="skeleton bg-inherit h-[18px] w-full !rounded-none mt-auto"></div>
+              ) : (
+                <div>{value}</div>
+              )}
+            </Link>
+          );
+        })}
       </div>
       <div className="border-r mx-[40px] border-gray"></div>
     </header>

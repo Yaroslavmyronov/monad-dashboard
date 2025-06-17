@@ -1,37 +1,36 @@
 import AvgBlockTime from './AvgBlockTime';
-import ConfirmedTxs from './ConfirmedTxs';
+import AvgTps from './AvgTps';
 import CustomAdress from './CustomAdress';
+
+import Erc20TransferEvents from './Erc20TransferEvents';
 import GasSpentByWallet from './GasSpentByWallet';
 import GasUsedToday from './GasUsedToday';
 import InsightCard from './InsightCard';
 import NetworkLoadIndex from './NetworkLoadIndex';
-import PendingTxs from './PendingTxs';
-import TotalSupply from './TotalSupply';
+import TransactionCount from './TransactionCount';
 
 function Home() {
   return (
-    <div className="container mx-auto w-full pb-4">
+    <div className="container mx-auto pb-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* Левая колонка */}
-        <div className="grid grid-rows-[288px_auto] gap-4">
-          <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-rows-[auto_auto] md:grid-rows-[288px_auto] gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="grid grid-rows-2 gap-4">
               <AvgBlockTime />
-              <ConfirmedTxs />
+              <AvgTps />
             </div>
-            <PendingTxs />
+            <Erc20TransferEvents />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <GasUsedToday />
             <InsightCard />
           </div>
         </div>
 
-        {/* Правая колонка */}
-        <div className="grid grid-rows-[288px_288px_auto] gap-4">
-          <TotalSupply />
-          <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-rows-[auto_auto_auto] md:grid-rows-[288px_288px_auto] gap-4">
+          <TransactionCount />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <GasSpentByWallet />
             <NetworkLoadIndex />
           </div>

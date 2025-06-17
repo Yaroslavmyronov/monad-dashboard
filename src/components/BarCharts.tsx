@@ -1,16 +1,14 @@
+import { formatNumber } from '@/utils/formatNumber';
 import { useState } from 'react';
 import { Bar, BarChart, Cell, ResponsiveContainer } from 'recharts';
+import { TransactionCountItem } from './Home/TransactionCount';
 
-const data = [
-  { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
-  { name: 'Page B', uv: 3000, pv: 1398, amt: 2210 },
-  { name: 'Page C', uv: 2000, pv: 9800, amt: 2290 },
-  { name: 'Page D', uv: 2780, pv: 3908, amt: 2000 },
-  { name: 'Page E', uv: 1890, pv: 4800, amt: 2181 },
-];
+const barHeights = [20, 35, 70, 50, 45];
 
-export default function Example() {
+export default function BarCharts({ data, loading }: { data: TransactionCountItem[]; loading: boolean }) {
   const [activeIndex, setActiveIndex] = useState(0);
+
+  const limitedData = data.slice(0, 5);
 
   const handleClick = (_data, index) => {
     setActiveIndex(index);
@@ -20,43 +18,40 @@ export default function Example() {
     const { x, y, width, index } = props;
     if (index !== activeIndex) return null;
 
+    const date = new Date(limitedData[index].utcDate);
+    const monthYear = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
     return (
       <>
-        <text
-          x={x + width / 2}
-          y={y - 20}
-          fill="white"
-          textAnchor="middle"
-          dominantBaseline="middle"
-          style={{ fontWeight: 'bold' }}
-        >
-          {data[index].name}
+        <text x={x} y={y - 30} fill="white" textAnchor="start" dominantBaseline="middle" className="text-[10px]">
+          {formatNumber(Number(limitedData[index].transactionCount))}
         </text>
-        <text
-          x={x + width / 2}
-          y={y - 5}
-          fill="white"
-          textAnchor="middle"
-          dominantBaseline="middle"
-          style={{ fontSize: 12 }}
-        >
-          {data[index].uv}
+        <text x={x} y={y - 15} fill="#636366" textAnchor="start" dominantBaseline="middle" className="text-[10px]">
+          {monthYear}
         </text>
       </>
     );
   };
 
   return (
-    <div style={{ width: '100%' }}>
-      <ResponsiveContainer width="100%" height={180}>
-        <BarChart width={20} height={200} data={data} margin={{ top: 30, right: 0, left: 0, bottom: 0 }}>
-          <Bar dataKey="uv" onClick={handleClick} label={renderCustomizedLabel}>
-            {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} cursor="pointer" fill={index === activeIndex ? '#8884d8' : 'var(--sand)'} />
-            ))}
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
+    <div className="mt-auto w-full">
+      {loading ? (
+        <div className="w-full h-[180px] animate-pulse flex items-end gap-2 px-4">
+          {barHeights.map((height, i) => (
+            <div key={i} className="bg-gray w-full" style={{ height: `${height}%` }} />
+          ))}
+        </div>
+      ) : (
+        <ResponsiveContainer width="100%" height={180}>
+          <BarChart width={20} height={200} data={limitedData} margin={{ top: 70, right: 10, left: 0, bottom: 0 }}>
+            <Bar dataKey="transactionCount" onClick={handleClick} label={renderCustomizedLabel}>
+              {limitedData.map((entry, index) => (
+                <Cell key={`cell-${index}`} cursor="pointer" fill={index === activeIndex ? '#8884d8' : 'var(--sand)'} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      )}
     </div>
   );
 }

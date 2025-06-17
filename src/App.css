@@ -31,6 +31,13 @@
   --color-gray: var(--gray);
 }
 
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background: var(--midnight);
+}
+
 body {
   min-height: 100%;
   font-family: 'ProtoMono', sans-serif;
@@ -60,8 +67,21 @@ body {
   }
 }
 
-div {
-  /* outline: 1px solid red; */
+@keyframes skeleton {
+  0% {
+    background-position-x: -50%;
+  }
+  100% {
+    background-position-x: 150%;
+  }
+}
+
+.skeleton {
+  will-change: background-position;
+  animation: skeleton 1.8s ease-in-out infinite;
+  background-image: linear-gradient(105deg, #0000 0% 40%, #636366 50%, #0000 60% 100%);
+  background-size: 200% auto;
+  background-repeat: no-repeat;
 }
 
 .swiper-pagination {
@@ -75,4 +95,17 @@ div {
 
 .swiper-pagination-bullet-active {
   background: white !important;
+}
+
+@keyframes scroll-seamless {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-scroll-seamless {
+  animation: scroll-seamless 20s linear infinite;
 }

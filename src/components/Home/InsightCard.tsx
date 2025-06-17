@@ -3,6 +3,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import CautionTape from '../CautionTape';
 
 function InsightCard() {
   const data = [
@@ -23,9 +24,11 @@ function InsightCard() {
       text: ' users often percetiu aethetically pleasing design as design thats more usable',
     },
   ];
+  const text = ' in development • in development • in development • ';
 
   return (
-    <div className="bg-gray-700 p-4">
+    <div className="bg-[#8884d854] p-4 min-h-[479px] relative select-none">
+      <CautionTape text={text}></CautionTape>
       <Swiper
         pagination
         modules={[Pagination, Autoplay]}
