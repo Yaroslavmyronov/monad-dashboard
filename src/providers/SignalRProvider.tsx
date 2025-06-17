@@ -9,7 +9,7 @@ export const SignalRProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const connection = new HubConnectionBuilder()
-      .withUrl('http://localhost:8080/dashboard')
+      .withUrl('https://monad-dashboard.duckdns.org/dashboard')
       .configureLogging(LogLevel.Information)
       .withAutomaticReconnect()
       .build();

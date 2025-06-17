@@ -1,6 +1,6 @@
 import axios, { CreateAxiosDefaults } from 'axios';
 
-export const API_URL = 'http://localhost:8080/api';
+export const API_URL = 'https://monad-dashboard.duckdns.org/api';
 
 const axiosOptions: CreateAxiosDefaults = {
   baseURL: API_URL,
