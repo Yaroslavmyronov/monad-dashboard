@@ -1,6 +1,6 @@
 import { formatNumber } from '@/utils/formatNumber';
 import { useState } from 'react';
-import { Bar, BarChart, Cell, ResponsiveContainer } from 'recharts';
+import { Bar, BarChart, Cell, LabelProps, ResponsiveContainer } from 'recharts';
 import { TransactionCountItem } from './Home/TransactionCount';
 
 const barHeights = [20, 35, 70, 50, 45];
@@ -10,26 +10,29 @@ export default function BarCharts({ data, loading }: { data: TransactionCountIte
 
   const limitedData = data.slice(0, 5);
 
-  const handleClick = (_data, index) => {
+  const handleClick = (_data: unknown, index: number) => {
     setActiveIndex(index);
   };
 
-  const renderCustomizedLabel = props => {
-    const { x, y, width, index } = props;
-    if (index !== activeIndex) return null;
+  const renderCustomizedLabel = (props: LabelProps) => {
+    const { x, y, index } = props;
+
+    if (index !== activeIndex || typeof x !== 'number' || typeof y !== 'number') {
+      return <g />;
+    }
 
     const date = new Date(limitedData[index].utcDate);
     const monthYear = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 
     return (
-      <>
+      <g>
         <text x={x} y={y - 30} fill="white" textAnchor="start" dominantBaseline="middle" className="text-[10px]">
           {formatNumber(Number(limitedData[index].transactionCount))}
         </text>
         <text x={x} y={y - 15} fill="#636366" textAnchor="start" dominantBaseline="middle" className="text-[10px]">
           {monthYear}
         </text>
-      </>
+      </g>
     );
   };
 
