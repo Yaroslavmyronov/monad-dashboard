@@ -1,15 +1,15 @@
 // src/providers/SignalRProvider.tsx
-import { useMetricsStore } from '@/services/store/useMetricsStore'
-import { Metrics } from '@/types/metrics'
-import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr'
-import { ReactNode, useEffect } from 'react'
+import { useMetricsStore } from '@/services/store/useMetricsStore';
+import { Metrics } from '@/types/metrics';
+import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+import { ReactNode, useEffect } from 'react';
 
 export const SignalRProvider = ({ children }: { children: ReactNode }) => {
   const setMetrics = useMetricsStore(state => state.setMetrics);
 
   useEffect(() => {
     const connection = new HubConnectionBuilder()
-      .withUrl('https://monad-dashboard.duckdns.org/dashboard')
+      .withUrl(import.meta.env.VITE_WS_URL)
       .configureLogging(LogLevel.Information)
       .withAutomaticReconnect()
       .build();
@@ -17,8 +17,6 @@ export const SignalRProvider = ({ children }: { children: ReactNode }) => {
     connection
       .start()
       .then(() => {
-       
-
         const handleData = (data: { metrics: Metrics }) => {
           if (data?.metrics) {
             setMetrics(data.metrics);

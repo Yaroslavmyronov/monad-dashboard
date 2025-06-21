@@ -6,4 +6,5 @@ export type Metrics = {
   AvgGasWei: string;
   TotalTransaction: string;
   SuccessPct: string;
+  Erc20TransferEvents: string;
 };

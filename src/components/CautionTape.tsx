@@ -1,7 +1,7 @@
 // CautionTape.tsx
 const CautionTape = ({ text }: { text: string }) => {
   return (
-    <div className="absolute inset-0 z-50 select-none">
+    <div className="absolute inset-0 z-10 select-none">
       <div className="flex items-center justify-center w-full h-full backdrop-blur-xs">
         <div className="overflow-hidden bg-white/10 backdrop-blur-sm border border-white/30 px-6 py-3">
           <div className="flex">

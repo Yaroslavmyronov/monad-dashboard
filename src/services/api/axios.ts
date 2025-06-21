@@ -1,9 +1,7 @@
 import axios, { CreateAxiosDefaults } from 'axios';
 
-export const API_URL = 'https://monad-dashboard.duckdns.org/api';
-
 const axiosOptions: CreateAxiosDefaults = {
-  baseURL: API_URL,
+  baseURL: import.meta.env.VITE_API_URL,
   withCredentials: true,
 };
 
