@@ -39,7 +39,7 @@ function GasUsedToday() {
 
           <div className="flex items-center gap-1">
             <div className="text-[20px]">/</div>
-            <div className="text-[14px]">eth</div>
+            <div className="text-[14px]">mon</div>
           </div>
         </div>
         <div className="w-full h-[2px] bg-white my-3 opacity-10"></div>

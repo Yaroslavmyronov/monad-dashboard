@@ -12,13 +12,13 @@ function NetworkLoadIndex() {
     },
   ];
   return (
-    <div className="bg-[#1f1f21] w-full h-full flex items-center justify-center relative p-4 select-none">
+    <div className="bg-[#1f1f21] w-full h-full flex items-center justify-center relative p-4 select-none min-h-[288px]">
       <div className="absolute z-[1] flex flex-col items-center justify-center text-white">
         <span className="text-[64px] tracking-[-6px] leading-none">{successPct}</span>
         <span className="">
-          success full
+          successful
           <br />
-          transaction
+          transactions
         </span>
       </div>
       <div className="h-full absolute flex items-center justify-center text-white opacity-70">
